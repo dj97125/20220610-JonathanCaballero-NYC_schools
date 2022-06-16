@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/action_school_list_to_details"
+    app:startDestination="@id/fragmentListSchool">
+
+    <fragment
+        android:id="@+id/fragmentListSchool"
+        android:name="com.example.nyc_schools_test.view.FragmentListSchool"
+        android:label="fragment_list_school"
+        tools:layout="@layout/fragment_list_school" >
+        <action
+            android:id="@+id/action_fragmentListSchool_to_fragmentDetailsSchool"
+            app:destination="@id/fragmentDetailsSchool"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentDetailsSchool"
+        android:name="com.example.nyc_schools_test.view.FragmentDetailsSchool"
+        android:label="fragment_details_school"
+        tools:layout="@layout/fragment_details_school" >
+        <action
+            android:id="@+id/action_fragmentDetailsSchool_to_fragmentListSchool"
+            app:destination="@id/fragmentListSchool"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+</navigation>
