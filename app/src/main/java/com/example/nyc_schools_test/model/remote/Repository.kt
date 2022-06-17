@@ -1,13 +1,15 @@
 package com.example.nyc_schools_test.model.remote
 
 
-import android.content.ContentValues
-import android.util.Log
-import com.example.nyc_schools_test.common.*
-import com.example.nyc_schools_test.model.local.Dao
+
+import com.example.nyc_schools_test.common.InternetCheck
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import com.example.nyc_schools_test.common.StateAction
+import com.example.nyc_schools_test.common.toDatabase
+import com.example.nyc_schools_test.common.toDomain
+import com.example.nyc_schools_test.model.local.SchoolsDao
+import com.example.nyc_schools_test.model.local.daos.SatDao
 import kotlinx.coroutines.flow.Flow
 
 
@@ -18,7 +20,8 @@ interface Repository {
 
 class RepositoryImpl @Inject constructor(
     private val service: NycApi,
-    private val dao: Dao
+    private val satDao: SatDao,
+    private val schoolsDao: SchoolsDao
 ) : Repository {
 
 
@@ -32,11 +35,11 @@ class RepositoryImpl @Inject constructor(
                 if (response.isSuccessful) {
                     response.body()?.let { result ->
                         if (result.isNotEmpty()) {
-                            dao.deleteAllSatLocalItem()
-                            dao.insertLocalSat(result.map { it.toDatabase() })
+                            satDao.deleteAllSchoolSat()
+                            satDao.insertSchoolsSat(result.map { it.toDatabase() })
                             result
                         } else {
-                            dao.getAllCachedSat()
+                            satDao.getSchoolsSat()
                         }
                         emit(StateAction.SUCCESS(result.map {
                             it.toDomain()
@@ -47,7 +50,7 @@ class RepositoryImpl @Inject constructor(
                 }
             } else {
                 emit(StateAction.MESSAGE("Loading from cache"))
-                val cache = dao.getAllCachedSat()
+                val cache = satDao.getSchoolsSat()
                 if (!cache.isNullOrEmpty()) {
                     emit(StateAction.SUCCESS(cache.map {
                         it.toDomain()
@@ -72,8 +75,8 @@ class RepositoryImpl @Inject constructor(
                 val response = service.getSchoolList()
                 if (response.isSuccessful) {
                     response.body()?.let { result ->
-                        dao.deleteAllSchoolLocalItem()
-                        dao.insertLocalSchool(result.map { it.toDatabase() })
+                        schoolsDao.deleteAllSchool()
+                        schoolsDao.insertSchools(result.map { it.toDatabase() })
                         emit(StateAction.SUCCESS(result.map { it.toDomain() }))
                     } ?: throw Exception("Response null")
                 } else {
@@ -81,7 +84,7 @@ class RepositoryImpl @Inject constructor(
                 }
             } else {
                 emit(StateAction.MESSAGE("Loading from cache"))
-                val cache = dao.getAllCachedSchools()
+                val cache = schoolsDao.getSchools()
                 if (!cache.isNullOrEmpty()) {
                     emit(StateAction.SUCCESS(cache.map { it.toDomain() }))
                 } else {

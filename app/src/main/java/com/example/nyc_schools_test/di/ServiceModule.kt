@@ -1,14 +1,15 @@
 package com.example.nyc_schools_test.di
 
+import androidx.room.Dao
 import com.example.nyc_schools_test.common.BASE_URL
-import com.example.nyc_schools_test.model.local.Dao
+import com.example.nyc_schools_test.model.local.SchoolsDao
+import com.example.nyc_schools_test.model.local.daos.SatDao
 import com.example.nyc_schools_test.model.remote.NycApi
 import com.example.nyc_schools_test.model.remote.Repository
 import com.example.nyc_schools_test.model.remote.RepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
@@ -47,8 +48,8 @@ class ServiceModule {
 
 
     @Provides
-    fun provideRepositoryLayer(service: NycApi,dao: Dao): Repository =
-        RepositoryImpl(service,dao)
+    fun provideRepositoryLayer(service: NycApi,satDao: SatDao,schoolsDao: SchoolsDao): Repository =
+        RepositoryImpl(service,satDao,schoolsDao)
 
     @Singleton
     @Provides

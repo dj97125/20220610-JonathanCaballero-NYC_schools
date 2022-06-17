@@ -9,9 +9,9 @@ data class SchoolListResponse(
     val overview_paragraph: String,
     val neighborhood: String,
     val location: String?,
-    val phone_number: String,
+    val phone_number: String?,
     val school_email: String?,
-    val website: String,
+    val website: String?,
 )
 
 
