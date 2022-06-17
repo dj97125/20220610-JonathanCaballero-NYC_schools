@@ -58,7 +58,8 @@ class FragmentListSchool : BaseFragment(), OnSchoolClicked {
                     binding.swipeRefresh.visibility = View.VISIBLE
 
                     // set the fetched data to the adapter to populate the recyclerview
-                    nycdapter.updateData(retrievedSchools)
+                        nycdapter.updateData(retrievedSchools)
+
                 }
                 is StateAction.ERROR -> {
                     binding.progressBar.visibility = View.GONE

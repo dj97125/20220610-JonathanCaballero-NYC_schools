@@ -8,3 +8,7 @@ class NullResponseException(
 class FailedResponseException(
     message: String = "Error: failure in the response"
 ) : Exception(message)
+
+class FailedCache(
+    message: String = "Error: failure in the cache"
+) : Exception(message)

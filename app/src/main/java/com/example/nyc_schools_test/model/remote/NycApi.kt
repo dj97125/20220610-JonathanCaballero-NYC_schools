@@ -12,6 +12,6 @@ interface NycApi {
 
     @GET(END_POINT_SAT)
     suspend fun getSchoolSat(
-        @Query("dbn") schoolDbn: String
+//        @Query("dbn") schoolDbn: String
     ): Response<List<SchoolSatResponse>>
 }

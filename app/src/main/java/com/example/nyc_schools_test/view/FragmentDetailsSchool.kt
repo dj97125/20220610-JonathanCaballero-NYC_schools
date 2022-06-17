@@ -37,18 +37,16 @@ class FragmentDetailsSchool : BaseFragment() {
                     val score: SchoolSatResponse? = scoresResponse.firstOrNull()
                     if (scoresResponse.isEmpty()) {
                         binding.apply {
-                            if (schoolInfo != null) {
                                 cardSAT.visibility = View.GONE
                                 tvSchoolName.text = schoolInfo?.school_name
                                 tvAddress.text = schoolInfo?.location
                                 tvEmail.text = schoolInfo?.school_email
                                 tvWebsite.text = schoolInfo?.website
                                 tvOverview.text = schoolInfo?.overview_paragraph
-                            }
+
                         }
                     } else {
                         binding.apply {
-                            if (schoolInfo != null) {
                                 cardSAT.visibility = View.VISIBLE
                                 tvMathScores.text = score?.mathAvg
                                 tvReadingScores.text = score?.readingAvg
@@ -58,7 +56,7 @@ class FragmentDetailsSchool : BaseFragment() {
                                 tvEmail.text = schoolInfo?.school_email
                                 tvWebsite.text = schoolInfo?.website
                                 tvOverview.text = schoolInfo?.overview_paragraph
-                            }
+
                         }
 
                     }

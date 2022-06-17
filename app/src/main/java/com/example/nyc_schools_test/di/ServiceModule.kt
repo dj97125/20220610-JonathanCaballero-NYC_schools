@@ -1,6 +1,7 @@
 package com.example.nyc_schools_test.di
 
 import com.example.nyc_schools_test.common.BASE_URL
+import com.example.nyc_schools_test.model.local.Dao
 import com.example.nyc_schools_test.model.remote.NycApi
 import com.example.nyc_schools_test.model.remote.Repository
 import com.example.nyc_schools_test.model.remote.RepositoryImpl
@@ -22,7 +23,7 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class ServiceModule {
-    @Singleton
+
     @Provides
     fun provideNycService(): NycApi =
         Retrofit.Builder()
@@ -32,7 +33,7 @@ class ServiceModule {
             .build()
             .create(NycApi::class.java)
 
-    @Singleton
+
     @Provides
     fun provideOkHttpClient(): OkHttpClient =
         OkHttpClient.Builder()
@@ -44,10 +45,10 @@ class ServiceModule {
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
 
-    @Singleton
+
     @Provides
-    fun provideRepositoryLayer(service: NycApi): Repository =
-        RepositoryImpl(service)
+    fun provideRepositoryLayer(service: NycApi,dao: Dao): Repository =
+        RepositoryImpl(service,dao)
 
     @Singleton
     @Provides

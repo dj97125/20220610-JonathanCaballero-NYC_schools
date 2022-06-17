@@ -4,12 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.nyc_schools_test.common.StateAction
 import com.example.nyc_schools_test.model.remote.Repository
-import com.example.nyc_schools_test.model.remote.RepositoryImpl
 import com.example.nyc_schools_test.model.remote.SchoolListResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 @HiltViewModel
